@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>hc_navigation</id>
+    <name>Places &amp; Navigation</name>
+    <namespace>HcNavigation</namespace>
+    <summary>Private and shared places in Nextcloud with navigation handoff to Mapy.com or Google Maps.</summary>
+    <description><![CDATA[
+Places & Navigation is a personal map application for Nextcloud 35. Store places in lists, mark favorites, share lists or individual places with users and groups, and hand navigation off to an external navigation provider.
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>AGPL-3.0-or-later</licence>
+    <author homepage="https://github.com/hacesoft">hacesoft</author>
+    <category>tools</category>
+    <category>social</category>
+    <website>https://github.com/hacesoft/Places-and-Navigation</website>
+    <bugs>https://github.com/hacesoft/Places-and-Navigation/issues</bugs>
+    <repository>https://github.com/hacesoft/Places-and-Navigation</repository>
+    <dependencies><nextcloud min-version="35" max-version="35"/></dependencies>
+    <navigations>
+        <navigation><name>Places &amp; Navigation</name><namespace>HcNavigation</namespace><route>hc_navigation.page.index</route><order>30</order><icon>app.svg</icon></navigation>
+    </navigations>
+</info>
