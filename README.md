@@ -1,35 +1,47 @@
-[Česky](README_CZ.md) | **English**
+# Places and Navigation 1.0.0 for Nextcloud
 
-# Places and Navigation for Nextcloud
+> **Publisher input archive:** This ZIP uses the final app-rooted format. NAS deployment helpers (`install.sh`, `uninstall.sh`, `build-release.sh`, `scripts/`) are not included. Any instructions referencing those files apply to the separate full-source GitHub repository, not this archive. The final signed App Store `.tar.gz` is produced by Hacesoft Publisher.
 
-Version **1.0.0** · Nextcloud **35** · PHP **8.3 or newer**
 
-Save places in lists, organize nested lists and favorites, share lists or individual places with users and groups, search addresses and hand a route to Mapy.com, Google Maps or a configured navigation application. Maps support device location and touch controls.
+[Česky](README_CZ.md) · [Installation](docs/en/INSTALLATION.md) · [Core and updates](docs/en/CORE_AND_UPDATES.md)
 
-Part of the Hacesoft application family. **[Hacesoft Shared App Core](https://github.com/hacesoft/core) 0.18.1 or newer is a required dependency.** Install and enable Core before this application. Core provides the shared layout, map providers, cache and location services as well as list, place and sharing storage.
+Store and share favorite places, organize nested place lists, browse maps and hand routes off to Mapy.com, Google Maps or a custom navigation application in **Nextcloud 35**.
+
+## Requirements
+
+- Nextcloud 35 and PHP 8.3 or newer
+- [Shared App Core](https://github.com/hacesoft/core) (`hc_shared_app_core`) **0.18.8 or newer**, installed and enabled first
 
 ## Installation
 
-Extract this full source archive into its own directory on the NAS. It includes `install.sh`, `uninstall.sh`, the ready-to-use application in `src/`, and documentation.
+This public repository contains the ready-to-use Nextcloud application at the **repository root**:
 
 ```sh
-sudo sh ./install.sh
+cd /var/www/html/custom_apps
+git clone https://github.com/hacesoft/Places-and-Navigation.git hc_navigation
+cd /var/www/html
+sudo -u www-data php occ app:enable hc_navigation
 ```
 
-The installer updates the application in the existing Nextcloud installation and reports the old/new version and installed size. It does not restart containers. For removal, read and run `sudo sh ./uninstall.sh`.
+For optional Synology NAS / Docker deployment, extract or clone the repository **outside** `custom_apps` and run `sudo sh install.sh` in its root. The installer validates requirements, stages the new code and backs up existing code before deploying. It does not delete saved places or lists. Back up your Nextcloud installation before updating.
 
-[Installation guide](docs/en/INSTALLATION.md) · [Core and update checks](docs/en/CORE_AND_UPDATES.md)
+## Features
 
-## Languages
+- Nested lists, favorites, search and sharing with users or groups
+- Device location, map gestures and geocoding
+- Navigation handoff to Mapy.com, Google Maps or a configured URL
+- Czech, English, German, Spanish, French, Italian, Dutch, Polish, Portuguese, Slovak and Ukrainian translations
 
-Czech (`cs`), English (`en`), German (`de`), Spanish (`es`), French (`fr`), Italian (`it`), Dutch (`nl`), Polish (`pl`), Portuguese (`pt`), Slovak (`sk`) and Ukrainian (`uk`). The interface follows the Nextcloud user's language. Unsupported languages and missing translations fall back to English. Documentation is maintained only in Czech and English.
+## Building
 
-## Repository and packaging
+Runtime JS and CSS are included, with no npm/Composer build needed on the server. `sh build-release.sh` verifies language catalogs and creates runtime and source archives. Generated `release/` files are not part of the Git repository.
 
-[Source repository](https://github.com/hacesoft/Places-and-Navigation) · [Issues](https://github.com/hacesoft/Places-and-Navigation/issues) · [Shared App Core](https://github.com/hacesoft/core)
+## License
 
-For GitHub, copy the **contents** of this source directory to the repository root, with `README.md`, `README_CZ.md`, `src/`, installation scripts and documentation at the top level. `src/appinfo/info.xml` declares version 1.0.0. `release/` is reserved for generated archives. Run `sh build-release.sh` to check the language catalogs and generate current runtime and full source archives. Maintainers need Python 3, Node.js, zip and standard shell tools; these build tools are not needed on the Nextcloud server to install the supplied package.
+AGPL-3.0-or-later. See [LICENSE](LICENSE) and the [full license](https://www.gnu.org/licenses/agpl-3.0.txt).
 
-Licensed under **AGPL-3.0-or-later**; see [LICENSE](LICENSE).
+Release history: [CHANGELOG.md](CHANGELOG.md). Czech: [CHANGELOG.cs.md](CHANGELOG.cs.md).
 
-[Data and sharing](docs/en/DATA.md) · [Mobile layout](docs/en/MOBILE_LAYOUT.md)
+## Full source archive and Hacesoft Publisher
+
+This GitHub/NAS project contains install.sh, uninstall.sh, build-release.sh, scripts/, docs/ and the installable Nextcloud runtime in src/. For NAS installation, extract the entire project and run `sudo sh install.sh` from its root. Do not copy the project root or scripts/ directly into Nextcloud custom_apps; the installer deploys src/. Publisher independently validates this full-source input and builds its own app-ID-rooted, signed distribution archive.

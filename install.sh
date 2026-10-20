@@ -49,7 +49,7 @@ MAX_NC_MAJOR="$(sed -n 's:.*<nextcloud[^>]*max-version="\([0-9][0-9]*\)".*:\1:p'
 [ -n "$APP_NAME" ] || APP_NAME="$APP_ID"
 [ -n "$SOURCE_VERSION" ] || die "Could not determine app version."
 
-for item in $RUNTIME_ITEMS; do [ -e "$APP_DIR/$item" ] || die "Required application item is missing: src/$item"; done
+for item in $RUNTIME_ITEMS; do [ -e "$APP_DIR/$item" ] || die "Required application item is missing: $item"; done
 CORE_MANIFEST="$APP_DIR/appinfo/hc_shared_app_core.json"
 [ -f "$CORE_MANIFEST" ] || die "Missing Core dependency manifest."
 CORE_REQUIRED="$(sed -n 's/.*"requiredVersion"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$CORE_MANIFEST" | head -n 1)"

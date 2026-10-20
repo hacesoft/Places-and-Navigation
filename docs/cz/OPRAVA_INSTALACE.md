@@ -17,4 +17,4 @@ Před nasazením nad živá data ponechte existující zálohu databáze. Výsle
 
 ## Závazné umístění pracovních souborů
 
-`custom_apps` je výhradně produkční adresář: obsahuje pouze živou složku přesně pojmenovanou podle App ID. Instalátor před prvním `occ` pomocí `scripts/custom-apps-safety.sh` přesune dřívější chybné kopie našich aplikací s duplicitním `appinfo/info.xml` do `<datadirectory>/hc-core-deployment-backups/custom-apps-quarantine/`; nemaže je. Nový kód kontroluje v `/tmp` a při chybě uklidí své pracovní adresáře. Zálohy zůstávají mimo `custom_apps`. Stejné pravidlo platí i pro samostatný cron svazek.
+`custom_apps` je výhradně produkční adresář: obsahuje pouze živou složku přesně pojmenovanou podle App ID. Instalátor před prvním `occ` pomocí `scripts/custom-apps-safety.sh` přesune pouze chybně pojmenované kopie právě instalované aplikace s duplicitním `appinfo/info.xml` do `<datadirectory>/hc-core-deployment-backups/custom-apps-quarantine/`; nemaže je. Nový kód kontroluje v `/tmp` a při chybě uklidí své pracovní adresáře. Zálohy zůstávají mimo `custom_apps`. Stejné pravidlo platí i pro samostatný cron svazek.

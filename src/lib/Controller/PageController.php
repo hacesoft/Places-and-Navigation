@@ -37,7 +37,7 @@ final class PageController extends Controller {
 
         // install.sh validates the manifest strictly. The fallback keeps a
         // useful page diagnostic visible after an incomplete manual copy.
-        $sRequiredCoreVersion = (string)($aManifest['requiredVersion'] ?? '0.18.1');
+        $sRequiredCoreVersion = (string)($aManifest['requiredVersion'] ?? '0.18.8');
         $sCoreDownloadUrl = (string)($aManifest['downloadUrl'] ?? 'https://github.com/hacesoft/core/tree/HEAD/release');
 
         $response = new TemplateResponse(Application::APP_ID, 'main', [

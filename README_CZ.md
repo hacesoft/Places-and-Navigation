@@ -1,35 +1,47 @@
-**Česky** | [English](README.md)
+# Místa a navigace 1.0.0 pro Nextcloud
 
-# Místa a navigace pro Nextcloud
+> **Vstupní archiv pro Publisher:** Tento ZIP má výslednou strukturu s jediným kořenovým adresářem aplikace. Neobsahuje NAS nástroje (`install.sh`, `uninstall.sh`, `build-release.sh`, `scripts/`). Návody, které je zmiňují, platí pro samostatný úplný zdrojový repozitář, nikoli pro tento archiv. Podepsaný `.tar.gz` pro App Store vytváří až Hacesoft Publisher.
 
-Verze **1.0.0** · Nextcloud **35** · PHP **8.3 nebo novější**
 
-Ukládání míst do seznamů, vnořené seznamy a oblíbená místa, sdílení seznamů i jednotlivých míst s uživateli a skupinami, vyhledávání adres a předání trasy Mapy.com, Google Maps nebo nastavené navigační aplikaci. Mapy podporují polohu zařízení a dotykové ovládání.
+[English](README.md) · [Instalace](docs/cz/INSTALLATION.md) · [Core a aktualizace](docs/cz/CORE_AND_UPDATES.md)
 
-Součást rodiny aplikací Hacesoft. **[Hacesoft Shared App Core](https://github.com/hacesoft/core) 0.18.1 nebo novější je povinná závislost.** Nejprve nainstalujte a zapněte Core. Poskytuje společný layout, mapové poskytovatele, mezipaměť a služby polohy i ukládání seznamů, míst a sdílení.
+Aplikace pro ukládání oblíbených míst, vnořené seznamy, sdílení, mapy a předání navigace do Mapy.com, Google Maps nebo vlastní navigační aplikace v **Nextcloudu 35**.
+
+## Požadavky
+
+- Nextcloud 35 a PHP 8.3 nebo novější
+- [Shared App Core](https://github.com/hacesoft/core) (`hc_shared_app_core`) **0.18.8 nebo novější**, předem nainstalovaný a zapnutý
 
 ## Instalace
 
-Rozbalte tento úplný zdrojový archiv do samostatného adresáře na NASu. Obsahuje `install.sh`, `uninstall.sh`, hotovou aplikaci v `src/` a dokumentaci.
+Veřejný repozitář obsahuje běhové soubory aplikace přímo **v kořeni**, lze ho tedy naklonovat do `custom_apps/hc_navigation`:
 
 ```sh
-sudo sh ./install.sh
+cd /var/www/html/custom_apps
+git clone https://github.com/hacesoft/Places-and-Navigation.git hc_navigation
+cd /var/www/html
+sudo -u www-data php occ app:enable hc_navigation
 ```
 
-Instalátor aktualizuje aplikaci ve stávajícím Nextcloudu a vypíše původní/novou verzi a velikost instalace. Nerestartuje kontejnery. Pro odstranění prostudujte a spusťte `sudo sh ./uninstall.sh`.
+Pro volitelné nasazení na Synology NAS / Dockeru rozbalte repozitář **mimo** `custom_apps` a v jeho kořeni spusťte `sudo sh install.sh`. Skript kontroluje požadavky, připraví soubory a zálohuje předchozí instalaci. Uložená místa a seznamy nemaže. Před aktualizací proveďte zálohu Nextcloudu.
 
-[Návod k instalaci](docs/cz/INSTALLATION.md) · [Core a kontrola verzí](docs/cz/CORE_AND_UPDATES.md)
+## Funkce
 
-## Jazyky
+- Vnořené seznamy míst, oblíbené položky, vyhledávání a sdílení
+- Poloha zařízení, ovládání mapy a geokódování
+- Navigace přes Mapy.com, Google Maps nebo vlastní URL
+- Překlady CS, EN, DE, ES, FR, IT, NL, PL, PT, SK a UK
 
-čeština (`cs`), angličtina (`en`), němčina (`de`), španělština (`es`), francouzština (`fr`), italština (`it`), nizozemština (`nl`), polština (`pl`), portugalština (`pt`), slovenština (`sk`) a ukrajinština (`uk`). Rozhraní se řídí jazykem uživatele Nextcloudu. Pro nepodporovaný jazyk nebo chybějící překlad se použije angličtina. Dokumentace je pouze v češtině a angličtině.
+## Sestavení
 
-## Repozitář a balíčky
+Aplikace již obsahuje potřebné JS a CSS; server nepotřebuje npm ani Composer. `sh build-release.sh` kontroluje překlady a vytváří runtime a zdrojové archivy. Výstupy v `release/` do Gitu nepatří.
 
-[Zdrojový repozitář](https://github.com/hacesoft/Places-and-Navigation) · [Hlášení chyb](https://github.com/hacesoft/Places-and-Navigation/issues) · [Shared App Core](https://github.com/hacesoft/core)
+## Licence
 
-Na GitHub zkopírujte **obsah** tohoto zdrojového adresáře přímo do kořene repozitáře, aby tam byly `README.md`, `README_CZ.md`, `src/`, instalační skripty a dokumentace. Verzi 1.0.0 určuje `src/appinfo/info.xml`. Adresář `release/` slouží pro vytvořené archivy. Příkaz `sh build-release.sh` zkontroluje jazyky a vytvoří aktuální runtime i úplný zdrojový archiv. Pro sestavení jsou potřeba Python 3, Node.js, zip a běžné shellové nástroje; při instalaci dodaného balíčku na server Nextcloudu tyto sestavovací nástroje nepotřebujete.
+AGPL-3.0-or-later. Viz [LICENSE](LICENSE) a [úplné znění licence](https://www.gnu.org/licenses/agpl-3.0.txt).
 
-Licence **AGPL-3.0-or-later**; viz [LICENSE](LICENSE).
+Veřejná historie vydání: [CHANGELOG.md](CHANGELOG.md). Český přehled: [CHANGELOG.cs.md](CHANGELOG.cs.md).
 
-[Data a sdílení](docs/cz/DATA.md) · [Mobilní rozložení](docs/cz/MOBILNI_LAYOUT.md)
+## Úplný zdrojový balíček a Hacesoft Publisher
+
+Balíček pro GitHub a instalaci na NAS obsahuje `install.sh`, `uninstall.sh`, `build-release.sh`, adresáře `scripts/`, `docs/` a hotovou aplikaci v `src/`. Pro instalaci na NAS rozbalte celý projekt a v jeho kořeni spusťte `sudo sh install.sh`. Do `custom_apps` se kopíruje pouze běhový obsah `src/`, nikoliv dokumentace projektu a instalační skripty. Publisher následně provede vlastní kontrolu a sestaví distribuční archiv s kořenovým adresářem podle ID aplikace; zdejší zdrojový ZIP není přímo distribuční TAR.GZ.

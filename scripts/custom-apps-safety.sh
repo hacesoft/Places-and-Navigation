@@ -26,16 +26,8 @@ hc_clean_custom_apps() {
                 declared=$(sed -n "s:.*<id>\\([^<]*\\)</id>.*:\\1:p" "$candidate/appinfo/info.xml" | head -n 1)
                 [ -n "$declared" ] || continue
                 [ "$name" != "$declared" ] || continue
-                case "$declared" in
-                    hc_shared_app_core|hc_shared_app_core_playground|hc_homewiki|hc_weather|hc_stickynotes|lineamonitor|hc_familytree|hc_navigation|hc_empty_app) ;;
-                    "$app_id") ;;
-                    *) continue ;;
-                esac
-                # Nepřesouvat jedinou existující kopii jiné aplikace.
-                if [ "$declared" != "$app_id" ] && [ ! -f "$root/$declared/appinfo/info.xml" ]; then
-                    echo "ERROR: $name declares $declared, but the canonical app is missing; refusing to move its only copy." >&2
-                    exit 1
-                fi
+                # Never manipulate installations of other applications.
+                [ "$declared" = "$app_id" ] || continue
                 mkdir -p "$quarantine"
                 destination="$quarantine/$declared.$(date +%Y%m%d%H%M%S).$$.$name"
                 counter=0
